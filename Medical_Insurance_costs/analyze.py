@@ -55,7 +55,7 @@ plt.xlabel('Charges')
 plt.ylabel('Frequency')
 plt.show()
 
-plt.clf()
+
 # Average charges based on region
 sns.boxplot(data=df, x='region', y='charges')
 plt.title('Distribution of Average cost based on region')
