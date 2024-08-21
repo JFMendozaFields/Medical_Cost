@@ -1,9 +1,11 @@
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import plotly.express as px
 
 
 df = pd.read_csv('insurance.csv')
+df_3d = px.data.iris()
 
 #prints data to check organizatiion
 #print(df.head())
@@ -38,7 +40,8 @@ print(f'Average costs: {average_costs:.2f}')
 counts_by_region = df['region'].value_counts(normalize=True) * 100
 print(f'Customers per region: ', counts_by_region)
 
-
+average_of_children = df['children'].mean()
+print(average_of_children)
 #calculating average insurance customer's age
 
 average_age = round(df['age'].mean())
@@ -47,6 +50,8 @@ print(f'Average customer age:',average_age)
 #print(df.describe())
 
 #print(df.smoker)
+
+
 
 #Distribution of charges by smoker status
 sns.histplot(data=df, x='charges', hue='smoker', multiple='stack', bins=30)
@@ -62,3 +67,20 @@ plt.title('Distribution of Average cost based on region')
 plt.xlabel('Regional origin')
 plt.ylabel('Charges per Region')
 plt.show()
+
+# Multi variate analysis
+
+sns.scatterplot(x=df.bmi, y=df.charges, hue=df.smoker, palette='bright')
+plt.show()
+
+sns.barplot(x='sex', y='charges', hue='smoker', data=df)
+plt.show()
+
+sns.catplot(x='region', y='charges', hue='sex', kind='bar', data=df)
+plt.show()
+
+#3D plot
+fig = px.scatter_3d(df, x='age', y='children', z='charges', color='smoker')
+fig.show()
+
+data_set = {'Female to Male ratio' : female_vs_male_counts, 'Average bmi' : average_bmi, 'Average age for records': average_age, 'average cost in records': average_costs}
